@@ -16,7 +16,7 @@ public class Memory implements MouseListener, ActionListener, Runnable {
     ImageIcon happyOrange = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (4).png").getImage().getScaledInstance(40,40, Image.SCALE_DEFAULT));
     ImageIcon angryRed = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (5).png").getImage().getScaledInstance(40,40, Image.SCALE_DEFAULT));
     ImageIcon tiredWhite = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (6).png").getImage().getScaledInstance(40,40, Image.SCALE_DEFAULT));
-    ImageIcon embarrasedPurple = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (7).png").getImage().getScaledInstance(40,40, Image.SCALE_DEFAULT));
+    ImageIcon embarrassedPurple = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (7).png").getImage().getScaledInstance(40,40, Image.SCALE_DEFAULT));
 
     private static final int CARD = 16;
     int[][] counts = new int[4][4];
