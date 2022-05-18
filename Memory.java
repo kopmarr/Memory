@@ -19,7 +19,7 @@ public class Memory implements MouseListener, ActionListener, Runnable {
     ImageIcon embarrassedPurple = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (7).png").getImage().getScaledInstance(150,150, Image.SCALE_DEFAULT));
 
     private static final int CARD = 16;
-    String[][] cardNum = new String[4][4];
+    int[][] cardNum = new int[4][4];
     JButton[][] cards = new JButton[4][4];
     JFrame frame = new JFrame("MEMORY MATCH");
     Container center = new Container();
@@ -68,48 +68,47 @@ public class Memory implements MouseListener, ActionListener, Runnable {
         for (int x = 0; x < 4; x++) {
             for (int y = 0; y < 4; y++) {
                 int randNum = (int) (Math.random() * 8);
-                if(randNum == 0 && w < 3){
+                cardNum[x][y] = randNum;
+                if(cardNum[x][y] == 0 && w < 2){
                     cards[x][y].setIcon(tiredWhite);
                     cards[x][y].setBackground(Color.WHITE);
                     w++;
                 }
-                if(randNum == 1 && o < 3){
+                if(cardNum[x][y] == 1 && o < 2){
                     cards[x][y].setIcon(happyOrange);
                     cards[x][y].setBackground(Color.ORANGE);
                     o++;
                 }
-                if(randNum == 2 && ye < 3){
+                if(cardNum[x][y] == 2 && ye < 2){
                     cards[x][y].setIcon(happyYellow);
                     cards[x][y].setBackground(Color.YELLOW);
                     ye++;
                 }
-                if(randNum == 3 && b < 3){
+                if(cardNum[x][y] == 3 && b < 2){
                     cards[x][y].setIcon(sadBlue);
                     cards[x][y].setBackground(Color.BLUE);
                     b++;
                 }
-                if(randNum == 4 && g < 3){
+                if(cardNum[x][y] == 4 && g < 2){
                     cards[x][y].setIcon(sickGreen);
                     cards[x][y].setBackground(Color.GREEN);
                     g++;
                 }
-                if(randNum == 5 && r < 3){
+                if(cardNum[x][y] == 5 && r < 2){
                     cards[x][y].setIcon(angryRed);
                     cards[x][y].setBackground(Color.RED);
                     r++;
                 }
-                if(randNum == 6 && gray < 3){
+                if(cardNum[x][y] == 6 && gray < 2){
                     cards[x][y].setIcon(scaredGrey);
                     cards[x][y].setBackground(Color.GRAY);
                     gray++;
                 }
-                if(randNum == 7 && p < 3){
+                if(cardNum[x][y] == 7 && p < 2){
                     cards[x][y].setIcon(embarrassedPurple);
                     cards[x][y].setBackground(Color.PINK);
                     p++;
                 }
-                //cards[x][y].setText(cardNum[x][y]);
-
             }
         }
         System.out.println(w + "," + o + "," + ye + "," + b + "," + g + "," + r + "," + gray + "," + p);
