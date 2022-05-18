@@ -9,23 +9,23 @@ import java.util.Random;
 
 public class Memory implements MouseListener, ActionListener, Runnable {
 
-    ImageIcon scaredGrey = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0.png").getImage().getScaledInstance(40,40, Image.SCALE_DEFAULT));
-    ImageIcon happyYellow = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (1).png").getImage().getScaledInstance(40,40, Image.SCALE_DEFAULT));
-    ImageIcon sadBlue = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (2).png").getImage().getScaledInstance(40,40, Image.SCALE_DEFAULT));
-    ImageIcon sickGreen = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (3).png").getImage().getScaledInstance(40,40, Image.SCALE_DEFAULT));
-    ImageIcon happyOrange = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (4).png").getImage().getScaledInstance(40,40, Image.SCALE_DEFAULT));
-    ImageIcon angryRed = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (5).png").getImage().getScaledInstance(40,40, Image.SCALE_DEFAULT));
-    ImageIcon tiredWhite = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (6).png").getImage().getScaledInstance(40,40, Image.SCALE_DEFAULT));
-    ImageIcon embarrassedPurple = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (7).png").getImage().getScaledInstance(40,40, Image.SCALE_DEFAULT));
+    ImageIcon scaredGrey = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0.png").getImage().getScaledInstance(150,150, Image.SCALE_DEFAULT));
+    ImageIcon happyYellow = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (1).png").getImage().getScaledInstance(150,150, Image.SCALE_DEFAULT));
+    ImageIcon sadBlue = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (2).png").getImage().getScaledInstance(150,150, Image.SCALE_DEFAULT));
+    ImageIcon sickGreen = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (3).png").getImage().getScaledInstance(150,150, Image.SCALE_DEFAULT));
+    ImageIcon happyOrange = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (4).png").getImage().getScaledInstance(150,150, Image.SCALE_DEFAULT));
+    ImageIcon angryRed = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (5).png").getImage().getScaledInstance(150,150, Image.SCALE_DEFAULT));
+    ImageIcon tiredWhite = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (6).png").getImage().getScaledInstance(150,150, Image.SCALE_DEFAULT));
+    ImageIcon embarrassedPurple = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (7).png").getImage().getScaledInstance(150,150, Image.SCALE_DEFAULT));
 
     private static final int CARD = 16;
-    int[][] counts = new int[4][4];
+    String[][] cardNum = new String[4][4];
     JButton[][] cards = new JButton[4][4];
     JFrame frame = new JFrame("MEMORY MATCH");
     Container center = new Container();
     Container west = new Container();
         JButton clear = new JButton();
-    int selected = 0;
+    int selected = 2;
 
     public static void main(String[] args) {new Memory();}
 
@@ -34,8 +34,8 @@ public class Memory implements MouseListener, ActionListener, Runnable {
 
         west.setLayout(new BorderLayout());
         center.setLayout(new GridLayout(4,4));
-        for (int row = 0; row < counts.length; row++) {
-            for (int column = 0; column < counts[0].length; column++) {
+        for (int row = 0; row < cardNum.length; row++) {
+            for (int column = 0; column < cardNum[0].length; column++) {
                 cards[column][row] = new JButton();
                 center.add(cards[column][row]);
                 cards[column][row].addActionListener(this);
@@ -51,51 +51,106 @@ public class Memory implements MouseListener, ActionListener, Runnable {
         frame.setVisible(true);
     }
 
+    //card is each assigned number 1-8 each number corresponds with a card image
+    //there can only be 2 of each number, if both equal the same number it's a match
+
+    int w;
+    int o;
+    int ye;
+    int b;
+    int g;
+    int r;
+    int gray;
+    int p;
+
     Random randNum = new Random();
     public void randomizedCard(){
-        ArrayList<Integer> list = new ArrayList<Integer>(400);
-        for (int x = 0; x < counts.length; x++) {
-            for (int y = 0; y < counts[0].length; y++) {
-                list.add(x*100+y);
+        for (int x = 0; x < 4; x++) {
+            for (int y = 0; y < 4; y++) {
+                int randNum = (int) (Math.random() * 8);
+                if(randNum == 0 && w < 3){
+                    cards[x][y].setIcon(tiredWhite);
+                    cards[x][y].setBackground(Color.WHITE);
+                    w++;
+                }
+                if(randNum == 1 && o < 3){
+                    cards[x][y].setIcon(happyOrange);
+                    cards[x][y].setBackground(Color.ORANGE);
+                    o++;
+                }
+                if(randNum == 2 && ye < 3){
+                    cards[x][y].setIcon(happyYellow);
+                    cards[x][y].setBackground(Color.YELLOW);
+                    ye++;
+                }
+                if(randNum == 3 && b < 3){
+                    cards[x][y].setIcon(sadBlue);
+                    cards[x][y].setBackground(Color.BLUE);
+                    b++;
+                }
+                if(randNum == 4 && g < 3){
+                    cards[x][y].setIcon(sickGreen);
+                    cards[x][y].setBackground(Color.GREEN);
+                    g++;
+                }
+                if(randNum == 5 && r < 3){
+                    cards[x][y].setIcon(angryRed);
+                    cards[x][y].setBackground(Color.RED);
+                    r++;
+                }
+                if(randNum == 6 && gray < 3){
+                    cards[x][y].setIcon(scaredGrey);
+                    cards[x][y].setBackground(Color.GRAY);
+                    gray++;
+                }
+                if(randNum == 7 && p < 3){
+                    cards[x][y].setIcon(embarrassedPurple);
+                    cards[x][y].setBackground(Color.PINK);
+                    p++;
+                }
+                //cards[x][y].setText(cardNum[x][y]);
+
             }
-
         }
-        counts = new int[4][4];
-
-        for (int x = 0; x < CARD; x++) {
-            int choice = (randNum.nextInt(list.size()));
-            counts[list.get(choice) / 100][list.get(choice) % 100] = CARD;
-            list.remove(choice);
-        }
+        System.out.println(w + "," + o + "," + ye + "," + b + "," + g + "," + r + "," + gray + "," + p);
     }
+
+    //rules
+    //when clicked the card is disabled and image is shown
+        //if the 2 cards flipped are the same the card stays disabled
+        //if the 2 cards flipped aren't the same the two selected cards get flipped over
+        //(become re-enabled and images disappear again)
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(clear)){
             System.out.println("clear");
+            randomizedCard();
+
         }
         else{
             for (int x = 0; x < cards.length; x++) {
                 for (int y = 0; y < cards[0].length; y++) {
                     if(e.getSource().equals(cards[x][y])) {
-                        if(selected == 2){
-                            selected = 0;
-                            cards[x][y].setEnabled(true);
 
-                        }
-                        selected++;
-                        System.out.println(selected);
+                        //cards[x][y].setIcon(happyOrange);
+                            if (selected == 2) {
+                                System.out.println(selected);
+                                cards[x][y].setEnabled(true);
+                                selected = 0;
+                            }
                         cards[x][y].setEnabled(false);
-
+                        selected++;
                     }
-                    if(cards[x][y]!= cards[x][y]){
-                        cards[x][y].setEnabled(true);
                     }
+                    //if(cards[x][y]!= cards[x][y]){
+                    //    cards[x][y].setEnabled(true);
+                    //}
                 }
             }
 
-        }
     }
+
 
     @Override
     public void mouseClicked(MouseEvent e) {
