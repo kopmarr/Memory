@@ -65,10 +65,13 @@ public class Memory implements MouseListener, ActionListener, Runnable {
 
     Random randNum = new Random();
     public void randomizedCard(){
-        for (int x = 0; x < 4; x++) {
-            for (int y = 0; y < 4; y++) {
+
+        for (int x = 0; x < cards.length; x++) {
+            for (int y = 0; y < cards[0].length; y++) {
                 int randNum = (int) (Math.random() * 8);
+
                 cardNum[x][y] = randNum;
+                
                 if(cardNum[x][y] == 0 && w < 2){
                     cards[x][y].setIcon(tiredWhite);
                     cards[x][y].setBackground(Color.WHITE);
@@ -105,8 +108,9 @@ public class Memory implements MouseListener, ActionListener, Runnable {
                     gray++;
                 }
                 if(cardNum[x][y] == 7 && p < 2){
+                    Color purple = new Color(138,43,226);
                     cards[x][y].setIcon(embarrassedPurple);
-                    cards[x][y].setBackground(Color.PINK);
+                    cards[x][y].setBackground(purple);
                     p++;
                 }
             }
@@ -117,8 +121,7 @@ public class Memory implements MouseListener, ActionListener, Runnable {
     //rules
     //when clicked the card is disabled and image is shown
         //if the 2 cards flipped are the same the card stays disabled
-        //if the 2 cards flipped aren't the same the two selected cards get flipped over
-        //(become re-enabled and images disappear again)
+        //if the 2 cards flipped aren't the same the two selected cards get flipped over and images are hidden
 
     @Override
     public void actionPerformed(ActionEvent e) {
