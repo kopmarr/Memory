@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.Timer;
 
 public class Memory implements MouseListener, ActionListener, Runnable {
 
@@ -28,7 +29,6 @@ public class Memory implements MouseListener, ActionListener, Runnable {
     Container center = new Container();
     Container west = new Container();
         JButton clear = new JButton();
-    int selected = 2;
 
     public static void main(String[] args) {new Memory();}
     Color darkOrange = new Color(250, 192, 128);
@@ -63,7 +63,7 @@ public class Memory implements MouseListener, ActionListener, Runnable {
 
 
     //Random randNum = new Random();
-    public void randomizedCard2(){
+    public void randomizedCard(){
 
         for (int x = 0; x < cardNum.length; x++) {
             for (int y = 0; y < cardNum[0].length; y++) {
@@ -90,35 +90,7 @@ public class Memory implements MouseListener, ActionListener, Runnable {
     }
     int[][] cardType = new int [4][4];
 
-    public void randomizedCard(){
 
-        ArrayList<Integer>randCard = new ArrayList<>();
-        randCard.add(0);
-        randCard.add(1);
-        randCard.add(2);
-        randCard.add(3);
-        randCard.add(4);
-        randCard.add(5);
-        randCard.add(6);
-        randCard.add(7);
-        randCard.add(8);
-        randCard.add(9);
-        randCard.add(10);
-        randCard.add(11);
-        randCard.add(12);
-        randCard.add(13);
-        randCard.add(14);
-        randCard.add(15);
-
-        Collections.shuffle(randCard);
-        for (int x = 0; x < cardNum.length; x++) {
-            for (int y = 0; y < cardNum[0].length; y++) {
-                cardType[x][y] = randCard.get(x);
-                cardType[x][y] = randCard.get(y);
-            }
-        }
-        System.out.println(randCard);
-    }
 
     //rules
     //when clicked the card is disabled and image is shown
@@ -126,15 +98,23 @@ public class Memory implements MouseListener, ActionListener, Runnable {
         //if the 2 cards flipped aren't the same the two selected cards get flipped over and images are hidden
 
     int start = 0;
+    int chosen = 0;
+    int selected = 1;
+    int numCardsSelected = 0;
+    //int delay = 2000;
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+
         if(start==0){
-            randomizedCard2();
+
+            randomizedCard();
             start++;
         }
         if(e.getSource().equals(clear)){
-            randomizedCard2();
+            randomizedCard();
             for (int x = 0; x < cards.length; x++) {
                 for (int y = 0; y < cards[0].length; y++) {
                     cards[x][y].setEnabled(true);
@@ -145,68 +125,128 @@ public class Memory implements MouseListener, ActionListener, Runnable {
 
         }
         else{
-            int revealed = 0;
-            for (int i = 0; i < cards.length; i++) {
-                for (int j = 0; j < cards[0].length; j++) {
-                    if(!cards[i][j].isEnabled()){
-                        revealed++;
-                    }
-
-                }
-            }
-            //System.out.println("revealed: " + revealed);
-            if(revealed == 15){
-                //System.out.println("win");
-                revealed = 0;
-            }
             for (int x = 0; x < cards.length; x++) {
                 for (int y = 0; y < cards[0].length; y++) {
                     if(e.getSource().equals(cards[x][y])) {
-                        if (cardNum[x][y] == 0 || cardNum[x][y] == 1) {
+                        numCardsSelected++;
+                        if (cardNum[x][y] == 0) { //101
                             cards[x][y].setIcon(tiredWhite);
                             cards[x][y].setBackground(Color.WHITE);
+                            chosen += 100;
                         }
-                        if (cardNum[x][y] == 2 || cardNum[x][y] == 3) {
+                        if (cardNum[x][y] == 1) {
+                            cards[x][y].setIcon(tiredWhite);
+                            cards[x][y].setBackground(Color.WHITE);
+                            chosen += 1;
+                        }
+                        if (cardNum[x][y] == 2) { //203
                             cards[x][y].setIcon(happyOrange);
                             cards[x][y].setBackground(Color.ORANGE);
+                            chosen += 200;
                         }
-                        if (cardNum[x][y] == 4 || cardNum[x][y] == 5) {
+                        if (cardNum[x][y] == 3) {
+                            cards[x][y].setIcon(happyOrange);
+                            cards[x][y].setBackground(Color.ORANGE);
+                            chosen += 3;
+                        }
+                        if (cardNum[x][y] == 4) { //405
                             cards[x][y].setIcon(happyYellow);
                             cards[x][y].setBackground(Color.YELLOW);
+                            chosen += 400;
                         }
-                        if (cardNum[x][y] == 6 || cardNum[x][y] == 7) {
+                        if (cardNum[x][y] == 5) {
+                            cards[x][y].setIcon(happyYellow);
+                            cards[x][y].setBackground(Color.YELLOW);
+                            chosen += 5;
+                        }
+                        if (cardNum[x][y] == 6) { //607
                             cards[x][y].setIcon(sadBlue);
                             cards[x][y].setBackground(Color.BLUE);
+                            chosen += 600;
                         }
-                        if (cardNum[x][y] == 8 || cardNum[x][y] == 9) {
+                        if (cardNum[x][y] == 7) {
+                            cards[x][y].setIcon(sadBlue);
+                            cards[x][y].setBackground(Color.BLUE);
+                            chosen += 7;
+                        }
+                        if (cardNum[x][y] == 8) { //809
                             cards[x][y].setIcon(sickGreen);
                             cards[x][y].setBackground(Color.GREEN);
+                            chosen += 800;
                         }
-                        if (cardNum[x][y] == 10 || cardNum[x][y] == 11) {
+                        if (cardNum[x][y] == 9) {
+                            cards[x][y].setIcon(sickGreen);
+                            cards[x][y].setBackground(Color.GREEN);
+                            chosen += 9;
+                        }
+                        if (cardNum[x][y] == 10) { //1011
                             cards[x][y].setIcon(angryRed);
                             cards[x][y].setBackground(Color.RED);
+                            chosen += 1000;
                         }
-                        if (cardNum[x][y] == 12 || cardNum[x][y] == 13) {
+                        if (cardNum[x][y] == 11) { //21
+                            cards[x][y].setIcon(angryRed);
+                            cards[x][y].setBackground(Color.RED);
+                            chosen += 11;
+                        }
+                        if (cardNum[x][y] == 12) { //1213
                             cards[x][y].setIcon(scaredGrey);
                             cards[x][y].setBackground(Color.GRAY);
+                            chosen += 1200;
                         }
-                        if (cardNum[x][y] == 14 || cardNum[x][y] == 15) {
+                        if (cardNum[x][y] == 13) {
+                            cards[x][y].setIcon(scaredGrey);
+                            cards[x][y].setBackground(Color.GRAY);
+                            chosen += 13;
+                        }
+                        if (cardNum[x][y] == 14) { //1415
                             Color purple = new Color(138, 43, 226);
                             cards[x][y].setIcon(embarrassedPurple);
                             cards[x][y].setBackground(purple);
+                            chosen += 1400;
                         }
-                            if (selected == 2) {
-                                System.out.println(selected);
-                                cards[x][y].setEnabled(false);
-                                selected = 0;
-                            }
+                        if(cardNum[x][y] == 15){
+                            Color purple = new Color(138, 43, 226);
+                            cards[x][y].setIcon(embarrassedPurple);
+                            cards[x][y].setBackground(purple);
+                            chosen += 15;
+                        }
+                        System.out.println("chosen:" + chosen);
 
-                            else if(selected==91247932) {
-                                cards[x][y].setEnabled(true);
-                                cards[x][y].setBackground(null);
-                                cards[x][y].setIcon(null);
-                            }
+
                         cards[x][y].setEnabled(false);
+
+                        if (selected == 2) {
+                            cards[x][y].setEnabled(false);
+                            System.out.println(selected);
+                            if(chosen == 101 || chosen == 203 || chosen ==405 || chosen == 607 || chosen == 809 || chosen == 1011 || chosen == 1213 || chosen == 1415){
+                                System.out.println("match");
+                            }
+                            //else {
+                                //cards[x][y].setEnabled(true);
+                               // cards[x][y].setIcon(cardBack);
+                              //  cards[x][y].setBackground(darkOrange);
+                            //}
+                            selected = 0;
+                            chosen = 0;
+                        }
+                        if(numCardsSelected == 16){
+                            for (int i = 0; i < cards.length; i++) {
+                                for (int j = 0; j < cards[0].length; j++) {
+                                    numCardsSelected = 0;
+                                    cards[i][j].setEnabled(true);
+                                    cards[i][j].setIcon(cardBack);
+                                    cards[i][j].setBackground(darkOrange);
+                                    randomizedCard();
+
+                                }
+                            }
+                            JOptionPane.showMessageDialog(frame,
+                                    "You win",
+                                    "WIN MESSAGE",
+                                    JOptionPane.INFORMATION_MESSAGE);
+                        }
+
                         selected++;
                     }
                 }
