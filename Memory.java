@@ -220,7 +220,10 @@ public class Memory implements MouseListener, ActionListener, Runnable {
                             cards[x][y].setEnabled(false);
                             System.out.println(selected);
                             if(chosen == 101 || chosen == 203 || chosen ==405 || chosen == 607 || chosen == 809 || chosen == 1011 || chosen == 1213 || chosen == 1415){
-                                System.out.println("match");
+                                JOptionPane.showMessageDialog(frame,
+                                        "You got a match",
+                                        "MATCH MESSAGE",
+                                        JOptionPane.INFORMATION_MESSAGE);
                             }
                             //else {
                                 //cards[x][y].setEnabled(true);
