@@ -58,9 +58,7 @@ public class Memory implements MouseListener, ActionListener, Runnable {
         frame.setVisible(true);
     }
 
-    //card is each assigned number 1-8 each number corresponds with a card image
-    //there can only be 2 of each number, if both equal the same number it's a match
-
+    //card is each assigned number 0-15 each number corresponds with a card image
 
     //Random randNum = new Random();
     public void randomizedCard(){
@@ -85,10 +83,9 @@ public class Memory implements MouseListener, ActionListener, Runnable {
         System.out.println("");
 
 
-        //System.out.println(w + "," + o + "," + ye + "," + b + "," + g + "," + r + "," + gray + "," + p);
 
     }
-    int[][] cardType = new int [4][4];
+    //int[][] cardType = new int [4][4];
 
 
 
@@ -101,12 +98,15 @@ public class Memory implements MouseListener, ActionListener, Runnable {
     int chosen = 0;
     int selected = 1;
     int numCardsSelected = 0;
+    int currentIndex;
+    int oddClickIndex;
+    Timer myTimer;
     //int delay = 2000;
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        //myTimer = new Timer(1000, new TimerListener);
 
         if(start==0){
 
@@ -213,23 +213,26 @@ public class Memory implements MouseListener, ActionListener, Runnable {
                         }
                         System.out.println("chosen:" + chosen);
 
-
+                        int matches = 0;
                         cards[x][y].setEnabled(false);
-
                         if (selected == 2) {
                             cards[x][y].setEnabled(false);
                             System.out.println(selected);
+
                             if(chosen == 101 || chosen == 203 || chosen ==405 || chosen == 607 || chosen == 809 || chosen == 1011 || chosen == 1213 || chosen == 1415){
                                 JOptionPane.showMessageDialog(frame,
                                         "You got a match",
                                         "MATCH MESSAGE",
                                         JOptionPane.INFORMATION_MESSAGE);
+                                matches++;
                             }
-                            //else {
-                                //cards[x][y].setEnabled(true);
-                               // cards[x][y].setIcon(cardBack);
-                              //  cards[x][y].setBackground(darkOrange);
-                            //}
+                            else {
+                                numCardsSelected--;
+                                cards[x][y].setIcon(cardBack);
+                                cards[x][y].setBackground(darkOrange);
+                                cards[x][y].setEnabled(true);
+
+                            }
                             selected = 0;
                             chosen = 0;
                         }
@@ -241,7 +244,9 @@ public class Memory implements MouseListener, ActionListener, Runnable {
                                     cards[i][j].setIcon(cardBack);
                                     cards[i][j].setBackground(darkOrange);
                                     randomizedCard();
-
+                                    selected = 0;
+                                    chosen = 0;
+                                    matches = 0;
                                 }
                             }
                             JOptionPane.showMessageDialog(frame,
