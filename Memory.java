@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-import java.util.Timer;
+import javax.swing.Timer;
 
 public class Memory implements MouseListener, ActionListener, Runnable {
 
@@ -22,7 +22,6 @@ public class Memory implements MouseListener, ActionListener, Runnable {
     ImageIcon cardBack = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (9).png").getImage().getScaledInstance(220,220, Image.SCALE_DEFAULT));
     ImageIcon restartIcon = new ImageIcon(new ImageIcon("c:/Users/kpearson2789/Downloads/pixil-frame-0 (10).png").getImage().getScaledInstance(40,40, Image.SCALE_DEFAULT));
 
-    private static final int CARD = 16;
     int[][] cardNum = {{0, 1, 2, 3}, {4, 5, 6, 7}, {8, 9, 10, 11}, {12, 13, 14, 15}};
     JButton[][] cards = new JButton[4][4];
     JFrame frame = new JFrame("MEMORY MATCH");
@@ -60,7 +59,6 @@ public class Memory implements MouseListener, ActionListener, Runnable {
 
     //card is each assigned number 0-15 each number corresponds with a card image
 
-    //Random randNum = new Random();
     public void randomizedCard(){
 
         for (int x = 0; x < cardNum.length; x++) {
@@ -76,23 +74,24 @@ public class Memory implements MouseListener, ActionListener, Runnable {
 
             }
         }
-        System.out.println(cardNum[0][0] + "," + cardNum[0][1] + "," + cardNum[0][2] + "," + cardNum[0][3]);
-        System.out.println(cardNum[1][0] + "," + cardNum[1][1] + "," + cardNum[1][2] + "," + cardNum[1][3]);
-        System.out.println(cardNum[2][0] + "," + cardNum[2][1] + "," + cardNum[2][2] + "," + cardNum[2][3]);
-        System.out.println(cardNum[3][0] + "," + cardNum[3][1] + "," + cardNum[3][2] + "," + cardNum[3][3]);
-        System.out.println("");
+        //System.out.println(cardNum[0][0] + "," + cardNum[0][1] + "," + cardNum[0][2] + "," + cardNum[0][3]);
+        //System.out.println(cardNum[1][0] + "," + cardNum[1][1] + "," + cardNum[1][2] + "," + cardNum[1][3]);
+        //System.out.println(cardNum[2][0] + "," + cardNum[2][1] + "," + cardNum[2][2] + "," + cardNum[2][3]);
+        //System.out.println(cardNum[3][0] + "," + cardNum[3][1] + "," + cardNum[3][2] + "," + cardNum[3][3]);
+        //System.out.println("");
 
 
 
     }
-    //int[][] cardType = new int [4][4];
-
-
 
     //rules
     //when clicked the card is disabled and image is shown
-        //if the 2 cards flipped are the same the card stays disabled
-        //if the 2 cards flipped aren't the same the two selected cards get flipped over and images are hidden
+        //if the 2 cards flipped are the same the cards stay disabled, and there is a got a match popup
+        //if the 2 cards flipped aren't the same waits 2 seconds then the two selected cards get flipped over
+        //and images are set to card backs
+        //when all cards are flipped a popup tell you that you won and cards are all reshuffled and flipped
+
+            //restart button to reshuffle the cards if you want to start a new game early
 
     int start = 0;
     int chosen = 0;
@@ -101,12 +100,12 @@ public class Memory implements MouseListener, ActionListener, Runnable {
     int currentIndex;
     int oddClickIndex;
     Timer myTimer;
-    //int delay = 2000;
+    int delay = 1000;
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //myTimer = new Timer(1000, new TimerListener);
+        myTimer = new Timer(2000, this);
 
         if(start==0){
 
@@ -117,12 +116,14 @@ public class Memory implements MouseListener, ActionListener, Runnable {
             randomizedCard();
             for (int x = 0; x < cards.length; x++) {
                 for (int y = 0; y < cards[0].length; y++) {
+                    selected = 1;
+                    numCardsSelected = 0;
+                    chosen = 0;
                     cards[x][y].setEnabled(true);
                     cards[x][y].setIcon(cardBack);
                     cards[x][y].setBackground(darkOrange);
                 }
             }
-
         }
         else{
             for (int x = 0; x < cards.length; x++) {
@@ -211,27 +212,31 @@ public class Memory implements MouseListener, ActionListener, Runnable {
                             cards[x][y].setBackground(purple);
                             chosen += 15;
                         }
-                        System.out.println("chosen:" + chosen);
+                        //System.out.println("chosen:" + chosen);
 
-                        int matches = 0;
+                        //int matches = 0;
                         cards[x][y].setEnabled(false);
                         if (selected == 2) {
                             cards[x][y].setEnabled(false);
-                            System.out.println(selected);
+                            //System.out.println(selected);
 
                             if(chosen == 101 || chosen == 203 || chosen ==405 || chosen == 607 || chosen == 809 || chosen == 1011 || chosen == 1213 || chosen == 1415){
                                 JOptionPane.showMessageDialog(frame,
                                         "You got a match",
                                         "MATCH MESSAGE",
                                         JOptionPane.INFORMATION_MESSAGE);
-                                matches++;
+                                //matches++;
                             }
                             else {
-                                numCardsSelected--;
-                                cards[x][y].setIcon(cardBack);
-                                cards[x][y].setBackground(darkOrange);
-                                cards[x][y].setEnabled(true);
-
+                                myTimer.start();
+                                myTimer.stop();
+                                if(!myTimer.isRunning()) {
+                                    System.out.println("hi");
+                                    numCardsSelected--;
+                                    cards[x][y].setIcon(cardBack);
+                                    cards[x][y].setBackground(darkOrange);
+                                    cards[x][y].setEnabled(true);
+                                }
                             }
                             selected = 0;
                             chosen = 0;
@@ -246,7 +251,7 @@ public class Memory implements MouseListener, ActionListener, Runnable {
                                     randomizedCard();
                                     selected = 0;
                                     chosen = 0;
-                                    matches = 0;
+                                    //matches = 0;
                                 }
                             }
                             JOptionPane.showMessageDialog(frame,
