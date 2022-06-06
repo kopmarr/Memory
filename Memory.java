@@ -101,11 +101,15 @@ public class Memory implements MouseListener, ActionListener, Runnable {
     int oddClickIndex;
     Timer myTimer;
     int delay = 1000;
+    int cardNumX;
+    int cardNumY;
+    int[][] cardNum1 = new int[4][4];
+
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        myTimer = new Timer(2000, this);
+        myTimer = new Timer(5, this);
 
         if(start==0){
 
@@ -212,36 +216,53 @@ public class Memory implements MouseListener, ActionListener, Runnable {
                             cards[x][y].setBackground(purple);
                             chosen += 15;
                         }
-                        //System.out.println("chosen:" + chosen);
+                        if(selected == 1){
+                            //cardNum1 = cardNum;
+                            //for (int i = 0; i < cardNum.length; i++) {
+                            //    for (int j = 0; j < cardNum[0].length; j++) {
+                            //        if(cardNum[i][j] == cardNum1[i][j]){
+                            //            i = cardNumX;
+                            //            j = cardNumY;
+                            //        }
+                            //    }
+                            //}
 
-                        //int matches = 0;
+                            System.out.println("i=" + cardNumX + " j=" + cardNumY);
+                        }
+
                         cards[x][y].setEnabled(false);
                         if (selected == 2) {
                             cards[x][y].setEnabled(false);
-                            //System.out.println(selected);
 
                             if(chosen == 101 || chosen == 203 || chosen ==405 || chosen == 607 || chosen == 809 || chosen == 1011 || chosen == 1213 || chosen == 1415){
                                 JOptionPane.showMessageDialog(frame,
                                         "You got a match",
                                         "MATCH MESSAGE",
                                         JOptionPane.INFORMATION_MESSAGE);
-                                //matches++;
                             }
                             else {
-                                myTimer.start();
-                                myTimer.stop();
-                                if(!myTimer.isRunning()) {
-                                    System.out.println("hi");
+                                JOptionPane.showMessageDialog(frame,
+                                        "No match",
+                                        "NO MATCH MESSAGE",
+                                        JOptionPane.INFORMATION_MESSAGE);
+
                                     numCardsSelected--;
                                     cards[x][y].setIcon(cardBack);
                                     cards[x][y].setBackground(darkOrange);
                                     cards[x][y].setEnabled(true);
-                                }
+
+                                    cards[cardNumX][cardNumY].setIcon(cardBack);
+                                    cards[cardNumX][cardNumY].setBackground(darkOrange);
+                                    cards[cardNumX][cardNumY].setEnabled(true);
                             }
                             selected = 0;
                             chosen = 0;
                         }
                         if(numCardsSelected == 16){
+                            JOptionPane.showMessageDialog(frame,
+                                    "You win",
+                                    "WIN MESSAGE",
+                                    JOptionPane.INFORMATION_MESSAGE);
                             for (int i = 0; i < cards.length; i++) {
                                 for (int j = 0; j < cards[0].length; j++) {
                                     numCardsSelected = 0;
@@ -254,10 +275,7 @@ public class Memory implements MouseListener, ActionListener, Runnable {
                                     //matches = 0;
                                 }
                             }
-                            JOptionPane.showMessageDialog(frame,
-                                    "You win",
-                                    "WIN MESSAGE",
-                                    JOptionPane.INFORMATION_MESSAGE);
+
                         }
 
                         selected++;
