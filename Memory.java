@@ -218,7 +218,7 @@ public class Memory implements MouseListener, ActionListener, Runnable {
                         }
                         if(selected == 1){
                             cardNum1 = cardNum;
-                            
+                            int indexOf(cardNum);
                             //System.out.println(cardNum1);
                             //for (int i = 0; i < cardNum.length; i++) {
                             //    for (int j = 0; j < cardNum[0].length; j++) {
