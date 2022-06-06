@@ -217,17 +217,19 @@ public class Memory implements MouseListener, ActionListener, Runnable {
                             chosen += 15;
                         }
                         if(selected == 1){
-                            //cardNum1 = cardNum;
+                            cardNum1 = cardNum;
+                            
+                            //System.out.println(cardNum1);
                             //for (int i = 0; i < cardNum.length; i++) {
                             //    for (int j = 0; j < cardNum[0].length; j++) {
-                            //        if(cardNum[i][j] == cardNum1[i][j]){
+                            //        if(cardNum[x][y] == cardNum1[i][j]){
                             //            i = cardNumX;
                             //            j = cardNumY;
                             //        }
                             //    }
                             //}
 
-                            System.out.println("i=" + cardNumX + " j=" + cardNumY);
+                            //System.out.println("i=" + cardNumX + " j=" + cardNumY);
                         }
 
                         cards[x][y].setEnabled(false);
