@@ -1,6 +1,6 @@
 # Memory
 
-rules:
+RULES:
     When clicked the card is disabled and image is shown.
         If the 2 cards flipped are the same the cards stay disabled, and there is a got a match popup.
         If the 2 cards flipped aren't the same waits 2 seconds then the two selected cards get flipped over
