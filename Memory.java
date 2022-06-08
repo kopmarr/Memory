@@ -75,11 +75,7 @@ public class Memory implements MouseListener, ActionListener, Runnable {
 
             }
         }
-        //System.out.println(cardNum[0][0] + "," + cardNum[0][1] + "," + cardNum[0][2] + "," + cardNum[0][3]);
-        //System.out.println(cardNum[1][0] + "," + cardNum[1][1] + "," + cardNum[1][2] + "," + cardNum[1][3]);
-        //System.out.println(cardNum[2][0] + "," + cardNum[2][1] + "," + cardNum[2][2] + "," + cardNum[2][3]);
-        //System.out.println(cardNum[3][0] + "," + cardNum[3][1] + "," + cardNum[3][2] + "," + cardNum[3][3]);
-        //System.out.println("");
+
 
 
 
@@ -98,20 +94,14 @@ public class Memory implements MouseListener, ActionListener, Runnable {
     int chosen = 0;
     int selected = 1;
     int numCardsSelected = 0;
-    int currentIndex;
-    int oddClickIndex;
-    Timer myTimer;
-    int delay = 1000;
     int a;
     int b;
-    int[][] cardNum1 = new int[4][4];
+    int wins;
 
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        myTimer = new Timer(5, this);
-
         if(start==0){
 
             randomizedCard();
@@ -220,7 +210,6 @@ public class Memory implements MouseListener, ActionListener, Runnable {
                         if(selected == 1){
                             a=x;
                             b=y;
-                            //System.out.println("SELECTED: " +selected);
                         }
 
                         cards[x][y].setEnabled(false);
@@ -234,7 +223,6 @@ public class Memory implements MouseListener, ActionListener, Runnable {
                                         JOptionPane.INFORMATION_MESSAGE);
                             }
                             else{
-                                System.out.println("NUMCARDSSELECTED: " + numCardsSelected);
                                 JOptionPane.showMessageDialog(frame,
                                         "No match",
                                         "NO MATCH MESSAGE",
