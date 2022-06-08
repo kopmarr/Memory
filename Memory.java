@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 import javax.swing.Timer;
@@ -101,8 +102,8 @@ public class Memory implements MouseListener, ActionListener, Runnable {
     int oddClickIndex;
     Timer myTimer;
     int delay = 1000;
-    int cardNumX;
-    int cardNumY;
+    int a;
+    int b;
     int[][] cardNum1 = new int[4][4];
 
 
@@ -217,19 +218,9 @@ public class Memory implements MouseListener, ActionListener, Runnable {
                             chosen += 15;
                         }
                         if(selected == 1){
-                            cardNum1 = cardNum;
-                            int indexOf(cardNum);
-                            //System.out.println(cardNum1);
-                            //for (int i = 0; i < cardNum.length; i++) {
-                            //    for (int j = 0; j < cardNum[0].length; j++) {
-                            //        if(cardNum[x][y] == cardNum1[i][j]){
-                            //            i = cardNumX;
-                            //            j = cardNumY;
-                            //        }
-                            //    }
-                            //}
-
-                            //System.out.println("i=" + cardNumX + " j=" + cardNumY);
+                            a=x;
+                            b=y;
+                            //System.out.println("SELECTED: " +selected);
                         }
 
                         cards[x][y].setEnabled(false);
@@ -242,20 +233,23 @@ public class Memory implements MouseListener, ActionListener, Runnable {
                                         "MATCH MESSAGE",
                                         JOptionPane.INFORMATION_MESSAGE);
                             }
-                            else {
+                            else{
+                                System.out.println("NUMCARDSSELECTED: " + numCardsSelected);
                                 JOptionPane.showMessageDialog(frame,
                                         "No match",
                                         "NO MATCH MESSAGE",
                                         JOptionPane.INFORMATION_MESSAGE);
 
                                     numCardsSelected--;
+                                    numCardsSelected--;
                                     cards[x][y].setIcon(cardBack);
                                     cards[x][y].setBackground(darkOrange);
                                     cards[x][y].setEnabled(true);
 
-                                    cards[cardNumX][cardNumY].setIcon(cardBack);
-                                    cards[cardNumX][cardNumY].setBackground(darkOrange);
-                                    cards[cardNumX][cardNumY].setEnabled(true);
+                                    cards[a][b].setIcon(cardBack);
+                                    cards[a][b].setBackground(darkOrange);
+                                    cards[a][b].setEnabled(true);
+                                    //selected = 1;
                             }
                             selected = 0;
                             chosen = 0;
